@@ -1495,7 +1495,7 @@ function showDeletePhysicsMachinesButton(){
 function deletePhysicsMachine(machineName){
 	
 	var info = "machineName" + "@@" + machineName ;
-	
+//	alert(info);
 	msg = Messenger().post({
 		  message: "确定删除该机柜？",
 		  actions: {
@@ -1508,7 +1508,7 @@ function deletePhysicsMachine(machineName){
 		    		  url:'delete.action',
 		    		  data:{
 		    			  user:user.getUser(),
-		    			  id:"exp-management",
+		    			  id:"physicsMachines-management",
 		    			  data:info
 		    		  },
 		    		  type:'post',      
@@ -1518,7 +1518,7 @@ function deletePhysicsMachine(machineName){
 		    		    		message : data["data"],
 		    		    		showCloseButton : true
 		    		      });
-		    			  showContent("exp-management",0);
+		    			  showContent("physicsMachines-management",0);
 		    		  }
 		    	  });
 		    	  return msg.cancel();
