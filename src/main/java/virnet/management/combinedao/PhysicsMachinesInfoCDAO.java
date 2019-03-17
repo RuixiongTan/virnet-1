@@ -19,7 +19,7 @@ import virnet.management.entity.PhysicsMachines;
 import virnet.management.util.ViewUtil;
 
 public class PhysicsMachinesInfoCDAO {
-	
+	private FacilitiesDAO fDAO = new FacilitiesDAO();
 	private PhysicsMachinesDAO pDAO = new PhysicsMachinesDAO();
 	private FacilityntcDAO  fntcDAO = new FacilityntcDAO();
 	private ViewUtil vutil = new ViewUtil();
@@ -325,6 +325,21 @@ public class PhysicsMachinesInfoCDAO {
 			return null;
 		this.pDAO.delete(pm);
 		System.out.println(machineName);
+		
+		FacilitiesDAO f = new FacilitiesDAO();
+		List<Facilities> flist = f.getListByProperty("facilitiesBelongPhysicsMachines", machineName);
+		
+		for(int i = 0; i < 11; i++) {
+			Integer id = flist.get(i).getFacilitiesId();
+			System.out.println("facilities_id = "+id);
+			Facilities tf = (Facilities) this.fDAO.getUniqueByProperty("facilitiesId", id);
+			if (tf == null) {
+				continue;
+			}
+			fDAO.delete(tf);
+//			fDAO.deleteById(id);
+		}
+		
 		System.out.println("delete successful!");
 		
 //		Exp exp = (Exp) this.eDAO.getUniqueByProperty("expName", expName);
