@@ -325,7 +325,7 @@ public class PhysicsMachinesInfoCDAO {
 			return null;
 		this.pDAO.delete(pm);
 		System.out.println(machineName);
-		
+		//删除facilities
 		FacilitiesDAO f = new FacilitiesDAO();
 		List<Facilities> flist1 = f.getListByProperty("facilitiesBelongPhysicsMachines", machineName);
 		System.out.println("flist1.size="+flist1.size());
@@ -337,6 +337,16 @@ public class PhysicsMachinesInfoCDAO {
 			if (tf == null) {
 				continue;
 			}
+			//删除facilityntc
+			Facilityntc tfntc = new Facilityntc();
+			List<Facilityntc> fntclist2 =  this.fntcDAO.getListByProperty("facilityId", id1);
+			int n2 = fntclist2.size();
+			for (int j =0; j < n2; j++) {
+				Facilityntc temp = fntclist2.get(j);
+				fntcDAO.delete(temp);
+			}
+			
+			
 			fDAO.delete(tf);
 //			fDAO.deleteById(id);
 		}
