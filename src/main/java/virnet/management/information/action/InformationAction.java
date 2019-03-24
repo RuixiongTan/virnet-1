@@ -142,7 +142,6 @@ public class InformationAction extends ActionSupport implements ServletRequestAw
 		return SUCCESS;
 	}
 	
-
 	public String add(){
 		String user = this.request.getParameter("user");
 		String id = this.request.getParameter("id");

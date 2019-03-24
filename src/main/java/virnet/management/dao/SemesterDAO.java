@@ -1,13 +1,18 @@
 package virnet.management.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import virnet.management.basedao.BaseDAO;
 import virnet.management.entity.Semester;
 import virnet.management.util.PageUtil;
+import virnet.management.util.ViewUtil;
 
 public class SemesterDAO extends BaseDAO{
+	private ViewUtil vutil = new ViewUtil();
 	 public void add(Semester obj) {
         super.add(obj);
     }
@@ -109,5 +114,33 @@ public class SemesterDAO extends BaseDAO{
 	public void getListByPage(String hql, PageUtil pageUtil) {
 		super.getListByPage(hql, pageUtil);
     }
+	
+	public Map<String, Object> Add(){
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<List<Map<String, Object>>> list = new ArrayList<List<Map<String, Object>>>();
+		
+		Map<String, Object> tittle = new HashMap<String, Object>();
+		tittle.put("data", "学期修改 <i class='icon-double-angle-right'></i> 设置当前学期");
+		
+		List<Map<String, Object>> semesterStartDate = this.vutil.createList("学期开始日期", "", "", "", "btn btn-link edit", "editable(this);", "physicsMachinesName",0);
+		List<Map<String, Object>> weeksNum = this.vutil.createList("学期总周数", "", "", "", "btn btn-link edit", "editable(this);", "physicsMachinesLabId",0);
+		
+		
+		list.add(semesterStartDate);
+		list.add(weeksNum);
+		
+		
+		Map<String, Object> button = new HashMap<String, Object>();
+		button.put("content", "保存信息");
+		button.put("class", "btn button-new");
+		button.put("click", "submit();");
+		
+		map.put("tittle", tittle);
+		map.put("data", list);
+		map.put("button", button);	
+		return map;
+	}
 }
 

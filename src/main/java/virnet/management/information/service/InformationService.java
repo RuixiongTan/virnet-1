@@ -15,6 +15,7 @@ import virnet.management.combinedao.PhysicsMachinesInfoCDAO;
 import virnet.management.combinedao.ScoreCDAO;
 import virnet.management.combinedao.TaskInfoCDAO;
 import virnet.management.dao.ClassDAO;
+import virnet.management.dao.SemesterDAO;
 import virnet.management.combinedao.FacilitiesInfoCDAO;
 import virnet.management.entity.Class;
 
@@ -30,13 +31,14 @@ public class InformationService {
 	private ClassInfoCDAO classDAO = new ClassInfoCDAO();
 	private FacilitiesInfoCDAO fDAO =new FacilitiesInfoCDAO();
 	private PhysicsMachinesInfoCDAO pDAO = new PhysicsMachinesInfoCDAO();
+	private SemesterDAO smDAO = new SemesterDAO();
 	private ScoreCDAO sDAO = new ScoreCDAO();
 	private SelfInfo selfInfo = new SelfInfo();
 
 	
 	public Map<String, Object> loadInfo(String user, String id, int page, String select){
 		Map<String, Object> list = new HashMap<String, Object>();
-		
+		System.out.println("id="+id);
 		switch(id){
 		case "exp-management": query = new ExpManagement(); break;
 		case "course-management": query = new CourseManagement(); break;
@@ -53,6 +55,7 @@ public class InformationService {
 		case "my-exp": query = new MyExp(); break;
 		case "score" : query = new Score();break;
 		case "physicsMachines-management":query =new PhysicsMachinesManagement();break;
+		case "semester-change":query = new SemesterManagement();break;
 //		case "exp-appointment":query = new ExpAppointment(); break;
 		default: break;
 		}
@@ -111,7 +114,7 @@ public class InformationService {
 	
 	public Map<String, Object> add(String user, String id){
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		System.out.println("program enter...");
 		switch(id){
 //		case "exp-appointment": map = this.DAO.Add(id);break;
 		case "exp-management" : map = this.eDAO.Add(); break;
@@ -119,6 +122,7 @@ public class InformationService {
 		case "class-management" : map = this.classDAO.Add();break;
 		case "facilities-management" :map = this.fDAO.Add();break;
 		case "physicsMachines-management" :map = this.pDAO.Add();break;
+		case "semester-change" :map =this.smDAO.Add();break;
 		}
 		
 		return map;

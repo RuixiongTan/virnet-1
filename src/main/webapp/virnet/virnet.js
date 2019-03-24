@@ -1597,3 +1597,48 @@ function deleteExp(expName){
 }
 
 
+function changeSemester(id){
+var username = user.getUser();
+	alert(id);
+	$.ajax({
+		url:"add.action",
+	    data:{
+			id : id,
+			user : username
+	    },    
+	    type:'post',      
+	    dataType:'json',    
+	    success:function(data){
+	    	alert("success!!!!!!!!!!!!!11");
+	    	$.cookie("click_name", "");
+	    	$.cookie("click_id", $(".sidebar-active").attr("id"));
+	    	
+	    	var body = $("#content");
+	    	body.empty();
+	    	
+	    	if(data["tittle"] != null){
+	    		var h = $("<h></h>");
+	    		h.appendTo(body);
+	    		h.attr("class", "tittle");
+	    		h.html(data["tittle"]["data"]);
+	    	}
+	    	
+	    	if(data["data"] != null){
+	    		createDetail(data["data"]).appendTo(body);
+	    	}
+	    	
+	    	if(data["button"] != null){
+	    		createButton(data["button"]).appendTo(body);
+	    	}
+	    	
+	    	storeHistory("other", "other", {
+			});
+	    	
+	    },
+	    error:function(data){
+	    	alert("error!!!!!!!");
+	    }
+	});
+}
+
+
