@@ -1282,6 +1282,13 @@ function fetchData(id, user, page, select,isHistory){
 	    	h.attr("class", "tittle col-lg-12 col-md-12 col-sm-12 col-xs-12");
 	    	h.appendTo(body_content);
 	    	
+	    	//生成修改按钮
+	    	if(data["button_change"] != null){
+		    	button_change = createButton(data["button_change"]);
+		    	button_change.appendTo(body_content);
+	    	}
+	    	
+	    	
 	    	if(data["button_delete"] != null){
 		    	button_delete = createButton(data["button_delete"]);
 		    	button_delete.appendTo(body_content);

@@ -117,6 +117,11 @@ public class TimeManagement implements InformationQuery {
 			int pagesize = pageUtil.getPageSize();
 			int pageNO = total / pagesize + 1;
 			
+			Map<Object, Object> button_semester = new HashMap<Object, Object>();
+            button_semester.put("content", "< 学期修改  >");
+            button_semester.put("class", "btn button-new");
+            button_semester.put("click", "changeSemester();");
+			
 			Map<Object, Object> button = new HashMap<Object, Object>();
 			button.put("content", "< 课时安排  >");
 			button.put("class", "btn button-new");
@@ -128,7 +133,8 @@ public class TimeManagement implements InformationQuery {
 			button_switch.put("class", "btn button-new");
 			button_switch.put("click", "showInChart(false);");
 			
-			map.put("button_switch", button_switch);		
+			map.put("button_switch", button_switch);
+			map.put("button_change", button_semester);
 			map.put("button_new", button);
 			map.put("data", list);
 			map.put("page", pageNO);
