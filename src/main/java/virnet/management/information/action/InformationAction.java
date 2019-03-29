@@ -100,21 +100,43 @@ public class InformationAction extends ActionSupport implements ServletRequestAw
 		String user = this.request.getParameter("user");
 		String id = this.request.getParameter("id");
 		String name = this.request.getParameter("name");
+		/*
+		 * 
+		 * 问题
+		 * 
+		 * */
+		System.out.println("user="+user);
+		System.out.println("id="+id);
+		System.out.println("name="+name);
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Map<String, String[]> data = this.request.getParameterMap();
 		
 		Set<String> k = data.keySet();
 		Iterator<String> i = k.iterator();
+		int tnum=1;
 		while(i.hasNext()){
+			
+			System.out.println("tnum="+tnum);
+			tnum++;
+			
 			String s = i.next();
 			if(s.contains("data[")){
 				if(s.contains("[]")){				
 					map.put(s.substring(5, s.indexOf("[]") - 1), data.get(s));
+					
+					System.out.println("1");
+					System.out.println(s.substring(5, s.indexOf("[]") - 1)+" "+data.get(s));
+					
 				}
 				else{
 					String key = s.substring(5, s.length() - 1);
 					map.put(key, data.get(s)[0]);
+					
+					System.out.println("2");
+					System.out.println(key+" "+data.get(s)[0]);
 				}	
 			}
 		}

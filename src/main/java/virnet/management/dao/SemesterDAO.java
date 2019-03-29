@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 import virnet.management.basedao.BaseDAO;
 import virnet.management.entity.Semester;
@@ -124,18 +125,45 @@ public class SemesterDAO extends BaseDAO{
 		Map<String, Object> tittle = new HashMap<String, Object>();
 		tittle.put("data", "学期修改 <i class='icon-double-angle-right'></i> 设置当前学期");
 		
-		List<Map<String, Object>> semesterStartDate = this.vutil.createList("学期开始日期", "", "", "", "btn btn-link edit", "editable(this);", "physicsMachinesName",0);
-		List<Map<String, Object>> weeksNum = this.vutil.createList("学期总周数", "", "", "", "btn btn-link edit", "editable(this);", "physicsMachinesLabId",0);
+		List<Map<String, Object>> semesterStartDate = this.vutil.createList("学期开始日期", "", "", "", "btn btn-link edit", "editable(this);", "semesterStartDate",0);
+		List<Map<String, Object>> weeksNum = this.vutil.createList("学期总周数", "", "", "", "btn btn-link edit", "editable(this);", "weeksNum",0);
 		
 		
 		list.add(semesterStartDate);
 		list.add(weeksNum);
 		
+//		Semester s=new Semester();
+//		s=(Semester) this.get(1);
+//		System.out.println(s.getSemesterStartdate());
+//		System.out.println(s.getSemesterTotalweek());
+		/*
+		 * 这里有问题
+		 * 
+		 * */
+//		Date d = new Date();
+//		d=this.UTC(2020, 1, 1, 0, 0, 0);
+//		d=(Date)semesterStartDate.get(0).values();
+//		s.setSemesterStartdate(d);
+		
+//		Integer weeks;
+//		weeks=(int)weeksNum.get(0).values();
+//		s.setSemesterStartdate(d);
+//		s.setSemesterTotalweek(29);
+		
+		
+//		String s2=weeksNum.toString();
+//		System.out.println("s2="+s2);
+		
+//		Semester s=new Semester();
+//		s=(Semester) this.smDAO.getUniqueByProperty("semesterId", 1);
+//		System.out.println(s.getSemesterStartdate());
+//		System.out.println(s.getSemesterTotalweek());
+		
 		
 		Map<String, Object> button = new HashMap<String, Object>();
-		button.put("content", "保存信息");
+		button.put("content", "保存");
 		button.put("class", "btn button-new");
-		button.put("click", "submit();");
+		button.put("click", "submitSemester();");
 		
 		map.put("tittle", tittle);
 		map.put("data", list);

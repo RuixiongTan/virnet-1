@@ -14,6 +14,7 @@ import virnet.management.combinedao.GroupInfoCDAO;
 import virnet.management.combinedao.PhysicsMachinesInfoCDAO;
 import virnet.management.combinedao.ScoreCDAO;
 import virnet.management.combinedao.TaskInfoCDAO;
+import virnet.management.combinedao.SemesterInfoCDAO;
 import virnet.management.dao.ClassDAO;
 import virnet.management.dao.SemesterDAO;
 import virnet.management.combinedao.FacilitiesInfoCDAO;
@@ -34,7 +35,7 @@ public class InformationService {
 	private SemesterDAO smDAO = new SemesterDAO();
 	private ScoreCDAO sDAO = new ScoreCDAO();
 	private SelfInfo selfInfo = new SelfInfo();
-
+	private SemesterInfoCDAO smiDAO = new SemesterInfoCDAO();
 	
 	public Map<String, Object> loadInfo(String user, String id, int page, String select){
 		Map<String, Object> list = new HashMap<String, Object>();
@@ -122,6 +123,9 @@ public class InformationService {
 		case "class-management" : map = this.classDAO.Add();break;
 		case "facilities-management" :map = this.fDAO.Add();break;
 		case "physicsMachines-management" :map = this.pDAO.Add();break;
+		/*
+		 * 问题
+		 * */
 		case "semester-change" :map =this.smDAO.Add();break;
 		}
 		
@@ -157,10 +161,10 @@ public class InformationService {
 		case "facilities-management" :	r = this.fDAO.save(name, map);break;
 		case "physicsMachines-management" :	r = this.pDAO.save(name, map);break;
 		case "class-management" : r = this.classDAO.save(name, id, map, user);break;
-		
+		case "semester-management": r = this.smiDAO.ChangeSemester(map);break;
 		//个人信息使用用户id为主键
 		case "selfInfo": r = this.selfInfo.save(user,map);break;
-										
+				
 		default : r = null;
 		
 		}

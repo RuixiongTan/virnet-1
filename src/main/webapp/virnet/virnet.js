@@ -960,6 +960,87 @@ function editable_password(i){
 	input.val(content);
 }
 
+function submitSemester(){
+	alert("into submitSemeter");
+	
+	var id = "semester-management";
+	var name = $.cookie("click_name");
+	var username = user.getUser();
+	var map = {};
+	
+	alert(id);
+	alert(name);
+	alert(username);
+	var isNull = false;
+	
+	
+	alert("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+	
+	//修改过的都会变成input 输入项
+	var inputs = $("input");
+	inputs.each(function(index, value){
+		if($(value).hasClass("form-control") && $(value).val()== ""){
+			isNull = true;
+			console.log("input" + index);
+		}
+		map[$(value).attr('value')] = $(value).val();
+		alert($(value).attr('value')+$(value).val());
+	});
+	
+	alert("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+	
+	if(isNull){
+		msg = Messenger().post({
+			message : "请将信息完整填入",
+			showCloseButton : true
+		});
+		return;
+	}
+	console.log(map);
+	$.ajax( {    
+	    url:"submit.action",
+	    data:{
+			id : id,
+			name : name,
+			user : username,
+			data : map,
+	    },    
+	    type:'post',      
+	    dataType:'json',    
+	    success:function(data){	  
+	    	alert("successful@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	    	/*
+	    	 * 这里有问题
+	    	 * 
+	    	 * 
+	    	 */
+	    	msg = Messenger().post({
+	    		message : data["returndata"],
+	    		showCloseButton : true
+	    	});
+	    	console.log(data);
+	    	
+	    	if(data["isSuccess"]==true){
+	    		alert("yessssssssssss!!!!!!!!!!!!!!!");
+	    		console.log("aaa");
+	    		showDetail(data["name"], data["key"]);
+	    	}
+	    	else{
+	    		alert("failllllll!!!!!!!!!!!!!!11");
+	    		//不刷新页面
+	    	}
+	    },
+	    error:function(data){
+	    	alert("error！！！！！！！！！！！！！！！！！！！！！！！！！！！！1");
+	    }
+	});
+	
+	
+}
+
+
+
 /**
  * 在编辑页面提交信息
  */
