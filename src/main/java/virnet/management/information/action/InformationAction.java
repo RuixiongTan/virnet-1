@@ -116,11 +116,7 @@ public class InformationAction extends ActionSupport implements ServletRequestAw
 		
 		Set<String> k = data.keySet();
 		Iterator<String> i = k.iterator();
-		int tnum=1;
 		while(i.hasNext()){
-			
-			System.out.println("tnum="+tnum);
-			tnum++;
 			
 			String s = i.next();
 			if(s.contains("data[")){

@@ -115,7 +115,6 @@ public class InformationService {
 	
 	public Map<String, Object> add(String user, String id){
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("program enter...");
 		switch(id){
 //		case "exp-appointment": map = this.DAO.Add(id);break;
 		case "exp-management" : map = this.eDAO.Add(); break;
@@ -127,6 +126,8 @@ public class InformationService {
 		 * 问题
 		 * */
 		case "semester-change" :map =this.smDAO.editPage();break;
+		default:
+			System.out.println(id);
 		}
 		
 		return map;
