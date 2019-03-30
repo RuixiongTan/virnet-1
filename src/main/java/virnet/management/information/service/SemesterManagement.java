@@ -30,11 +30,6 @@ public class SemesterManagement implements InformationQuery {
             List<List<Map<String, Object>>> list = new ArrayList<List<Map<String, Object>>>();
             
             List<Map<String, Object>> head = new ArrayList<Map<String, Object>>();
-//          Map<String, Object> head_id = new HashMap<String, Object>();
-//          head_id.put("name", "时段编号");
-//          head_id.put("class", "");
-//          head.add(head_id);
-            
             Map<String, Object> head_name = new HashMap<String, Object>();
             head_name.put("name", "班级名称");
             head_name.put("class", "");
@@ -70,11 +65,7 @@ public class SemesterManagement implements InformationQuery {
                 
                 //period NO.
                 List<Map<String, Object>> pInfo = new ArrayList<Map<String, Object>>();
-//              Map<String, Object> map_id = new HashMap<String, Object>();
-//              map_id.put("name", i + "");
-//              map_id.put("class", "");
-//              pInfo.add(map_id);
-                
+
                 //class name and course name
                 Map<String, Object> map_name = new HashMap<String, Object>();
                 int classid = pclist.get(i).getPeriodarrangeWeekClassid();
@@ -142,10 +133,7 @@ public class SemesterManagement implements InformationQuery {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-        
-        
+        } 
         return map;
     }
-
 }

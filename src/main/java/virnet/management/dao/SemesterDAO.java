@@ -116,7 +116,7 @@ public class SemesterDAO extends BaseDAO{
 		super.getListByPage(hql, pageUtil);
     }
 	
-	public Map<String, Object> Add(){
+	public Map<String, Object> editPage(){
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -130,35 +130,7 @@ public class SemesterDAO extends BaseDAO{
 		
 		
 		list.add(semesterStartDate);
-		list.add(weeksNum);
-		
-//		Semester s=new Semester();
-//		s=(Semester) this.get(1);
-//		System.out.println(s.getSemesterStartdate());
-//		System.out.println(s.getSemesterTotalweek());
-		/*
-		 * 这里有问题
-		 * 
-		 * */
-//		Date d = new Date();
-//		d=this.UTC(2020, 1, 1, 0, 0, 0);
-//		d=(Date)semesterStartDate.get(0).values();
-//		s.setSemesterStartdate(d);
-		
-//		Integer weeks;
-//		weeks=(int)weeksNum.get(0).values();
-//		s.setSemesterStartdate(d);
-//		s.setSemesterTotalweek(29);
-		
-		
-//		String s2=weeksNum.toString();
-//		System.out.println("s2="+s2);
-		
-//		Semester s=new Semester();
-//		s=(Semester) this.smDAO.getUniqueByProperty("semesterId", 1);
-//		System.out.println(s.getSemesterStartdate());
-//		System.out.println(s.getSemesterTotalweek());
-		
+		list.add(weeksNum);	
 		
 		Map<String, Object> button = new HashMap<String, Object>();
 		button.put("content", "保存");

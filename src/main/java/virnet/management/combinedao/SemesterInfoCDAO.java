@@ -17,23 +17,17 @@ import virnet.management.util.ViewUtil;
 public class SemesterInfoCDAO {
     private SemesterDAO smDAO = new SemesterDAO();
     private ViewUtil vutil = new ViewUtil();
-    
-    
-  
 
     public Map<String, Object> ChangeSemester(Map<String, Object> map) throws ParseException{
     	Map<String, Object> r = new HashMap<String, Object>();
     	Set<String> key = map.keySet();
-    	System.out.println("map_size="+map.size());
-    	System.out.println("key_size="+key.size());
-    	
-    	
+//    	System.out.println("map_size="+map.size());
+//    	System.out.println("key_size="+key.size());
     	
     	Semester s = (Semester) this.smDAO.getUniqueByProperty("semesterId", 1);
-    	
+
     	if(s==null) 
     		return null;
-    	
     	
     	System.out.println("time="+s.getSemesterStartdate());
     	System.out.println("weeks="+s.getSemesterTotalweek());
@@ -50,26 +44,13 @@ public class SemesterInfoCDAO {
         
         Date date =sdf.parse(d);
         s.setSemesterStartdate(date);
-        System.out.println(d);
-            
-            
+//      System.out.println(d);
         s.setSemesterTotalweek(ws);
-
- 
     	this.smDAO.update(s);
-    	
-    	System.out.println("time="+s.getSemesterStartdate());
-    	System.out.println("weeks="+s.getSemesterTotalweek());
-    	
-    	
-     	
     	
     	r.put("isSuccess", true);
         r.put("name", "");
-        
-    	
-    	
-    	
+
      	return r;
     }
 

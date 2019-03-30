@@ -120,7 +120,7 @@ public class TimeManagement implements InformationQuery {
 			Map<Object, Object> button_semester = new HashMap<Object, Object>();
             button_semester.put("content", "< 学期修改  >");
             button_semester.put("class", "btn button-new");
-            button_semester.put("click", "changeSemester('semester-change');");
+            button_semester.put("click", "semesterPage('semester-change');");
 			
 			Map<Object, Object> button = new HashMap<Object, Object>();
 			button.put("content", "< 课时安排  >");

@@ -961,21 +961,12 @@ function editable_password(i){
 }
 
 function submitSemester(){
-	alert("into submitSemeter");
-	
 	var id = "semester-management";
 	var name = $.cookie("click_name");
 	var username = user.getUser();
 	var map = {};
 	
-	alert(id);
-	alert(name);
-	alert(username);
 	var isNull = false;
-	
-	
-	alert("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
 	
 	//修改过的都会变成input 输入项
 	var inputs = $("input");
@@ -985,10 +976,8 @@ function submitSemester(){
 			console.log("input" + index);
 		}
 		map[$(value).attr('value')] = $(value).val();
-		alert($(value).attr('value')+$(value).val());
 	});
 	
-	alert("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 	
 	if(isNull){
 		msg = Messenger().post({
@@ -1009,12 +998,6 @@ function submitSemester(){
 	    type:'post',      
 	    dataType:'json',    
 	    success:function(data){	  
-	    	alert("successful@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-	    	/*
-	    	 * 这里有问题
-	    	 * 
-	    	 * 
-	    	 */
 	    	msg = Messenger().post({
 	    		message : data["returndata"],
 	    		showCloseButton : true
@@ -1022,21 +1005,18 @@ function submitSemester(){
 	    	console.log(data);
 	    	
 	    	if(data["isSuccess"]==true){
-	    		alert("yessssssssssss!!!!!!!!!!!!!!!");
 	    		console.log("aaa");
 	    		showDetail(data["name"], data["key"]);
 	    	}
 	    	else{
-	    		alert("failllllll!!!!!!!!!!!!!!11");
+	    		alert("error!");
 	    		//不刷新页面
 	    	}
 	    },
 	    error:function(data){
-	    	alert("error！！！！！！！！！！！！！！！！！！！！！！！！！！！！1");
+	    	alert("error!");
 	    }
 	});
-	
-	
 }
 
 
@@ -1678,9 +1658,9 @@ function deleteExp(expName){
 }
 
 
-function changeSemester(id){
+function semesterPage(id){
 var username = user.getUser();
-	alert(id);
+//	alert(id);
 	$.ajax({
 		url:"add.action",
 	    data:{
@@ -1690,7 +1670,7 @@ var username = user.getUser();
 	    type:'post',      
 	    dataType:'json',    
 	    success:function(data){
-	    	alert("success!!!!!!!!!!!!!11");
+//	    	alert("success!!!!!!!!!!!!!11");
 	    	$.cookie("click_name", "");
 	    	$.cookie("click_id", $(".sidebar-active").attr("id"));
 	    	

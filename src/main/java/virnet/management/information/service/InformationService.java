@@ -126,7 +126,7 @@ public class InformationService {
 		/*
 		 * 问题
 		 * */
-		case "semester-change" :map =this.smDAO.Add();break;
+		case "semester-change" :map =this.smDAO.editPage();break;
 		}
 		
 		return map;
