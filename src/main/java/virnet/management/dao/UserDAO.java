@@ -14,11 +14,20 @@ import virnet.management.entity.UserCharacter;
 
 public class UserDAO extends BaseDAO{
 	private static final Logger log = LoggerFactory.getLogger(UserDAO.class);
+//谭睿雄2.8
+    public void delete(User obj) {
+        super.delete(obj);
+    }
 	
 	public List getListByProperty(String pName,
             Object pValue) {
     	List list = super.getListByProperty(User.class, pName, pValue);
     	return list;	    	
+    }
+	
+	public List getList() {
+    	List list = super.getList(User.class);
+    	return list;
     }
 	
 	public User getUniqueByProperty(String pName, Object pValue){

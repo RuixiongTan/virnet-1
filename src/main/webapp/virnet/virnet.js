@@ -1703,3 +1703,116 @@ var username = user.getUser();
 }
 
 
+
+//谭睿雄1.2
+function showDeleteGroupButton(){
+	if($("#showDeleteGroupButton").html() == "- 删除分组"){
+		$(".deleteButton").removeClass("hide");
+		$("#showDeleteGroupButton").html("取消");
+		$("#showDeleteGroupButton").css("background-color","#e00c1f");
+	}
+	else{
+		$(".deleteButton").addClass("hide");
+		$("#showDeleteGroupButton").html("- 删除分组");
+		$("#showDeleteGroupButton").css("background-color","");
+	}
+}
+//谭睿雄1.5
+function deleteGroup(classgroupName){
+	
+	var info = "classgroupName" + "@@" + classgroupName ;
+	
+	msg = Messenger().post({
+		  message: "确定删除该分组？",
+		  actions: {
+		    retry: {
+		      label: '确定',
+		      phrase: 'Retrying TIME',
+		      delay: 10,
+		      action: function(){
+		    	  $.ajax({
+		    		  url:'delete.action',
+		    		  data:{
+		    			  user:user.getUser(),
+		    			  id:"group",
+		    			  data:info
+		    		  },
+		    		  type:'post',      
+		    		  dataType:'json',    
+		    		  success:function(data) {
+		    			  msg = Messenger().post({
+		    		    		message : data["data"],
+		    		    		showCloseButton : true
+		    		      });
+		    			  showContent("group",0);
+		    		  }
+		    	  });
+		    	  return msg.cancel();
+		      }
+		    },
+		    cancel: {
+		      label:'取消',
+		      action: function() {
+		        return msg.cancel();
+		      }
+		    }
+		  }
+		});
+}
+//谭睿雄2.2
+function showDeleteStudButton(){
+	if($("#showDeleteStudButton").html() == "- 删除学生"){
+		$(".deleteButton").removeClass("hide");
+		$("#showDeleteStudButton").html("取消");
+		$("#showDeleteStudButton").css("background-color","#e00c1f");
+	}
+	else{
+		$(".deleteButton").addClass("hide");
+		$("#showDeleteStudButton").html("- 删除学生");
+		$("#showDeleteStudButton").css("background-color","");
+	}
+}
+//谭睿雄2.4
+function deleteStud(userNickname){
+	
+	var info = "userNickname" + "@@" + userNickname ;
+	
+	msg = Messenger().post({
+		  message: "确定删除该学生以及所在分组？",
+		  actions: {
+		    retry: {
+		      label: '确定',
+		      phrase: 'Retrying TIME',
+		      delay: 10,
+		      action: function(){
+		    	  $.ajax({
+		    		  url:'delete.action',
+		    		  data:{
+		    			  user:user.getUser(),
+		    			  id:"student",
+		    			  data:info
+		    		  },
+		    		  type:'post',      
+		    		  dataType:'json',    
+		    		  success:function(data) {
+		    			  msg = Messenger().post({
+		    		    		message : data["data"],
+		    		    		showCloseButton : true
+		    		      });
+		    			  showContent("student",0);
+		    		  }
+		    	  });
+		    	  return msg.cancel();
+		      }
+		    },
+		    cancel: {
+		      label:'取消',
+		      action: function() {
+		        return msg.cancel();
+		      }
+		    }
+		  }
+		});
+}
+
+

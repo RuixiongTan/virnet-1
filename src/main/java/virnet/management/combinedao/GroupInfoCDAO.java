@@ -91,4 +91,27 @@ public class GroupInfoCDAO {
 		
 		return map;
 	}
+	
+//谭睿雄1.7
+	public Map<String, Object> deleteGroup(String classgroupName){
+		if(classgroupName==null)
+			return null;
+		Classgroup classgroup = (Classgroup) this.gDAO.getUniqueByProperty("classgroupName", classgroupName);
+		if(classgroup == null)
+			return null;
+		Integer classgroupId = classgroup.getClassgroupId();
+//谭睿雄1.8删除groupmember表
+		System.out.println("deleteGroupmember");
+		for(int i = 0; i < mDAO.getList().size(); i++) {
+			Groupmember groupmember =(Groupmember) mDAO.getList().get(i);
+			if(groupmember.getClassgroupmemberGroupId() == classgroupId) {
+				mDAO.delete(groupmember);
+				i--;
+			}	
+		}
+//1.7删除classgroup表
+		System.out.println("deleteClassgroup");
+		this.gDAO.delete(classgroup);
+		return null;
+	}
 }

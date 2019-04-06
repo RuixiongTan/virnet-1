@@ -84,7 +84,13 @@ public class Student implements InformationQuery {
 			map_email.put("name", String.valueOf(student[3]));
 			map_email.put("class", "");
 			studentInfo.add(map_email);
-			
+//谭睿雄2.3			
+			Map<String, String> map_delete = new HashMap<String, String>();
+			map_delete.put("name", "删除");
+			map_delete.put("class", "btn btn-new hide deleteButton");
+			System.out.println(String.valueOf(student[1]));
+			map_delete.put("onclick", "deleteStud( '"+ String.valueOf(student[1]) + "');");
+			studentInfo.add(map_delete);
 			
 			list.add(studentInfo);
 		}
@@ -95,10 +101,17 @@ public class Student implements InformationQuery {
 		button.put("content", "导入学生信息");
 		button.put("class", "btn button-new");
 		button.put("click", "inputPage();");
+//谭睿雄2.1		
+		Map<Object, Object> button_delete = new HashMap<Object, Object>();
+		button_delete.put("content", "- 删除学生");
+		button_delete.put("class", "btn button-new");
+		button_delete.put("click", "showDeleteStudButton();");
+		button_delete.put("id", "showDeleteStudButton");
 		
 		map.put("data", list);
 		map.put("page", pageNO);
 		map.put("button_new", button);
+		map.put("button_delete", button_delete);//
 		
 		return map;
 	}

@@ -12,7 +12,7 @@ public class StuClassDAO extends BaseDAO{
         return super.add(obj);
     }
 
-   
+//谭睿雄2.7
     public void delete(StuClass obj) {
         super.delete(obj);
     }
@@ -39,6 +39,7 @@ public class StuClassDAO extends BaseDAO{
     }
 
 	public Object getUniqueByProperty(String pName, Object pValue) {
+		System.out.println(789);//
     	Object o = super.getUniqueByProperty(StuClass.class, pName, pValue);
 		return o;
     }

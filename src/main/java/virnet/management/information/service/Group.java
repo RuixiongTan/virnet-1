@@ -76,13 +76,14 @@ public class Group implements InformationQuery {
 			int courseid = clist.get(0).getClassCourseId();
 			CourseDAO courseDAO = new CourseDAO();
 			List<Course> courselist = courseDAO.getListByProperty("courseId", courseid);
-			
+			System.out.println("courselist size : " + courselist.size());//
 			cmap.put("class", courselist.get(0).getCourseName() + " " + clist.get(0).getClassName());
 			selectlist.add(cmap);
 		}
 		
 		
 		int s = selectlist.size();
+		System.out.println("Selectlist size:"+s);//
 		int classid;
 		if(s == 0){
 			//list is null
@@ -90,26 +91,36 @@ public class Group implements InformationQuery {
 		}
 		else{
 			classid = (int) ((Map<String, Object>) selectlist.get(0)).get("id");
+			System.out.println("aaa");//
 		}
-		
-		for(int i = 0; i < s; i++){
-			if(select.equals(((Map<String, Object>) selectlist.get(i)).get("class"))){
-				classid = (int) ((Map<String, Object>) selectlist.get(i)).get("id");
+		System.out.println("aa");//
+		if(select!=null){//谭睿雄1.9
+			for(int i = 0; i < s; i++){
+				System.out.println("bb");
+				System.out.println(select);
+				System.out.println(((Map<String, Object>) selectlist.get(i)).get("class"));
+				if(select.equals(((Map<String, Object>) selectlist.get(i)).get("class"))){
+					System.out.println("cc");
+					classid = (int) ((Map<String, Object>) selectlist.get(i)).get("id");
+					
+				}
+				System.out.println("bb");
 			}
 		}
 		
 		
 		PageUtil<Class> pageUtil = new PageUtil<Class>();
+		System.out.println(page);//
 		if(page == 0){
-			page = 1;
+			page = 1;System.out.println("c");//
 		}
 		pageUtil.setPageNo(page);
-		
+		System.out.println("d");//
 		String ghql =  "SELECT model from " + Classgroup.class.getName() + " as model where model.classgroupClassId ='" + classid + "'";
 		this.gDAO.getListByPage(ghql, pageUtil);
 		
 		List<Classgroup> glist = pageUtil.getList();
-		
+		System.out.println("Classgroup size:"+glist.size());//
 		int l = glist.size();
 		for(int i = 0; i < l; i++){
 			List<Map<String, Object>> GroupInfo = new ArrayList<Map<String, Object>>();
@@ -130,6 +141,7 @@ public class Group implements InformationQuery {
 			Map<String, Object> map_member = new HashMap<String, Object>();
 			
 			int ms = mlist.size();
+			System.out.println("Groupmember size:"+ms);//
 			List<Object> member = new ArrayList<Object>();
 			for(int j = 0; j < ms; j++){
 				User u = usercheck.getUser(mlist.get(j).getClassgroupmemberUserId());
@@ -144,11 +156,17 @@ public class Group implements InformationQuery {
 			map_member.put("name", member);
 			map_member.put("class", "collapse");
 			GroupInfo.add(map_member);
+//谭睿雄1.4		
+			Map<String, Object> map_delete = new HashMap<String, Object>();
+			map_delete.put("name", "删除");
+			map_delete.put("class", "btn btn-new hide deleteButton");
+			map_delete.put("onclick", "deleteGroup( '"+ glist.get(i).getClassgroupName() + "');");
+			GroupInfo.add(map_delete);
 			
 			list.add(GroupInfo);
 		}
 		
-		int total = this.ctDAO.getListByHql(hql).size();
+		int total = this.gDAO.getList().size();//谭睿雄1.3
 		int pagesize = pageUtil.getPageSize();
 		int pageNO = total / pagesize + 1;
 		
@@ -156,8 +174,15 @@ public class Group implements InformationQuery {
 		button.put("content", "+ 新增分组");
 		button.put("class", "btn button-new");
 		button.put("click", "groupArrange('0')");
+//谭睿雄1.1		
+		Map<Object, Object> button_delete = new HashMap<Object, Object>();
+		button_delete.put("content", "- 删除分组");
+		button_delete.put("class", "btn button-new");
+		button_delete.put("click", "showDeleteGroupButton();");
+		button_delete.put("id", "showDeleteGroupButton");
 		
 		map.put("select", selectlist);
+		map.put("button_delete", button_delete);//1.1
 		map.put("button_new", button);
 		map.put("data", list);
 		map.put("page", pageNO);
