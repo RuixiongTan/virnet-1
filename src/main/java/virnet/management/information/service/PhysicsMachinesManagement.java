@@ -58,38 +58,45 @@ public class PhysicsMachinesManagement implements InformationQuery{
 			page = 1;
 		}
 		pageUtil.setPageNo(page);
-		
+		int PageSize = pageUtil.getPageSize();
 		List<PhysicsMachines> physicsmachineslist = new ArrayList<PhysicsMachines>();
-//		List<PhysicsMachines> tempList = physicsMachinesDAO.getList();
+		
 		int recordSize = physicsMachinesDAO.getList().size();
 		System.out.println("记录数："+recordSize);
 		if (recordSize > 0) {
-			this.physicsMachinesDAO.getListByPage(pageUtil);
-			physicsmachineslist = pageUtil.getList();
+//			this.physicsMachinesDAO.getListByPage(pageUtil);
+//			physicsmachineslist = pageUtil.getList();
+			List<PhysicsMachines> tempList = physicsMachinesDAO.getList();
+			Collections.sort(tempList, new Comparator<PhysicsMachines>(){
+				/*
+	             * int compare(PhysicsMachines p1, PhysicsMachines p2) 返回一个基本类型的整型，
+	             	*返回负数表示：p1 小于p2，
+	             	* 返回0 表示：p1和p2相等，
+	             	* 返回正数表示：p1大于p2
+	             */
+				public int compare(PhysicsMachines p1, PhysicsMachines p2) {
+	                //按照PhysicsMachines的名称进行升序排列
+					String s1=p1.getPhysicsMachinesName();
+					String s2=p2.getPhysicsMachinesName();
+	                if(s1.compareTo(s2)>0){
+	                    return 1;
+	                }
+	                else if(s1.compareTo(s2)==0){
+	                    return 0;
+	                }
+	                return -1;
+	            }
+			});
+			for(int t=0;(t<PageSize)&&(t<recordSize-(page-1)*PageSize);t++) {
+				physicsmachineslist.add(tempList.get((page-1)*PageSize+t));
+			}
+			
+			
 		}
 		int size = physicsmachineslist.size();
 		System.out.println("physicsMachinesD list size : " + size);
 		
-		Collections.sort(physicsmachineslist, new Comparator<PhysicsMachines>(){
-			/*
-             * int compare(PhysicsMachines p1, PhysicsMachines p2) 返回一个基本类型的整型，
-             	*返回负数表示：p1 小于p2，
-             	* 返回0 表示：p1和p2相等，
-             	* 返回正数表示：p1大于p2
-             */
-			public int compare(PhysicsMachines p1, PhysicsMachines p2) {
-                //按照PhysicsMachines的名称进行升序排列
-				String s1=p1.getPhysicsMachinesName();
-				String s2=p2.getPhysicsMachinesName();
-                if(s1.compareTo(s2)>0){
-                    return 1;
-                }
-                else if(s1.compareTo(s2)==0){
-                    return 0;
-                }
-                return -1;
-            }
-		});
+		
 		
 		
 		
