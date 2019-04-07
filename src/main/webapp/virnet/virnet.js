@@ -1548,6 +1548,7 @@ function deleteTaskOrder(expId,expTaskOrder,expName){
 		});
 }
 
+
 function showDeletePhysicsMachinesButton(){
 	if($("#showDeletePhysicsMachinesButton").html() == "- 删除机柜"){
 		$(".deleteButton").removeClass("hide");
@@ -1561,7 +1562,6 @@ function showDeletePhysicsMachinesButton(){
 	}
 }
 function deletePhysicsMachine(machineName){
-	
 	var info = "machineName" + "@@" + machineName ;
 //	alert(info);
 	msg = Messenger().post({
@@ -1601,6 +1601,49 @@ function deletePhysicsMachine(machineName){
 		  }
 		});
 }
+//需要修改structs.xml文件关联action与Java,修改后不要Maven->update project
+function changePhysicsMachineStatus(machineName){
+//调用action/InformationAction中的函数 ---> informationService中的函数
+	var info = "machineName" + "@@" + machineName ;
+	msg = Messenger().post({
+		  message: "改变该机柜状态？",
+		  actions: {
+		    retry: {
+		      label: '确定',
+		      phrase: 'Retrying TIME',
+		      delay: 10,
+		      action: function(){
+		    	  $.ajax({
+		    		  url:"changePhysicsMachineStatus.action",
+		    		  data:{
+		    			  user:user.getUser(),
+		    			  id:"physicsMachines-management",
+		    			  data:info
+		    		  },
+		    		  type:'post',      
+		    		  dataType:'json',    
+		    		  success:function(data) {
+		    			  alert("^^^^^^^^^^^^^^^^^^^^^^^^6");
+		    			  msg = Messenger().post({
+		    		    		message : data["data"],
+		    		    		showCloseButton : true
+		    		      });
+		    			  showContent("physicsMachines-management",0);
+		    		  }
+		    	  });
+		    	  return msg.cancel();
+		      }
+		    },
+		    cancel: {
+		      label:'取消',
+		      action: function() {
+		        return msg.cancel();
+		      }
+		    }
+		  }
+		});
+}
+
 
 function showDeleteExpButton(){
 	if($("#showDeleteExpButton").html() == "- 删除实验"){

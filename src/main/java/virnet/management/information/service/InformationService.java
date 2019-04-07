@@ -17,8 +17,10 @@ import virnet.management.combinedao.TaskInfoCDAO;
 import virnet.management.combinedao.SemesterInfoCDAO;
 import virnet.management.dao.ClassDAO;
 import virnet.management.dao.SemesterDAO;
+import virnet.management.dao.PhysicsMachinesDAO;
 import virnet.management.combinedao.FacilitiesInfoCDAO;
 import virnet.management.entity.Class;
+import virnet.management.entity.PhysicsMachines;
 
 public class InformationService {
 	
@@ -32,6 +34,7 @@ public class InformationService {
 	private ClassInfoCDAO classDAO = new ClassInfoCDAO();
 	private FacilitiesInfoCDAO fDAO =new FacilitiesInfoCDAO();
 	private PhysicsMachinesInfoCDAO pDAO = new PhysicsMachinesInfoCDAO();
+	private PhysicsMachinesDAO phDAO = new PhysicsMachinesDAO();
 	private SemesterDAO smDAO = new SemesterDAO();
 	private ScoreCDAO sDAO = new ScoreCDAO();
 	private SelfInfo selfInfo = new SelfInfo();
@@ -135,6 +138,7 @@ public class InformationService {
 	
 	public Map<String, Object> delete(String user, String id,Map<String,Object> deleteInfo){
 		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^66");
 		
 		switch(id){
 		case "task-management": TaskInfoCDAO ticDAO = new TaskInfoCDAO();
@@ -143,12 +147,42 @@ public class InformationService {
 		case "exp-management": ExpInfoCDAO eicDAO = new ExpInfoCDAO();
 								eicDAO.deleteExp((String) deleteInfo.get("expName"));
 								break;
-		case "physicsMachines-management":PhysicsMachinesInfoCDAO pmicDao = new PhysicsMachinesInfoCDAO();
+		case "physicsMachines-management":
+			System.out.println("enter this..22..");
+											PhysicsMachinesInfoCDAO pmicDao = new PhysicsMachinesInfoCDAO();
 											pmicDao.deletePhysicsMachine((String) deleteInfo.get("machineName"));
 											break;
 		}
 		
 		return map;
+	}
+	
+	public Boolean changeStatus(String user, String id,Map<String,Object> Info){
+		switch(id){
+		case "physicsMachines-management":PhysicsMachinesDAO phtDAO = new PhysicsMachinesDAO();
+										 PhysicsMachines p ;
+										 p = (PhysicsMachines) phtDAO.getUniqueByProperty("physicsMachinesName", Info.get("machineName"));
+										 System.out.println(p.getStatus());
+										 int s = p.getStatus();
+										 if(s==1) { 
+											 p.setStatus(0);
+										 } 
+										 else if(s==0){
+											 p.setStatus(1);
+										 }
+										 else {
+											 System.out.println("status out of range!");
+										 }
+										 //修改后需更新机柜，physics_machines 表才会更新
+										 phtDAO.update(p);
+										 System.out.println(p.getStatus());
+										 break;
+		default:
+			System.out.println("error！ id out of range!");
+			break;
+		}
+		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		return true;
 	}
 	
 	public Map<String, Object> submit(String user, String id, String name, Map<String, Object> map){

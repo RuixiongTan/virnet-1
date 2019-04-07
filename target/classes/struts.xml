@@ -97,6 +97,12 @@
 				<param name="root">delete</param>
 			</result>
 		</action>
+		
+		<action name="changePhysicsMachineStatus" class="information" method="changePhysicsMachineStatus">
+			<result name="success" type="json">
+				<param name="root">PhysicsMachinesStatus</param>
+			</result>
+		</action>
 
 		<action name="classList" class="information" method="queryClassList">
 			<result name="success" type="json">

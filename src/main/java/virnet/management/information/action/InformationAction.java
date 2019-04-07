@@ -34,6 +34,8 @@ public class InformationAction extends ActionSupport implements ServletRequestAw
 	private Map<String, Object> add = new HashMap<String, Object>();
 	private Map<String, Object> delete = new HashMap<String, Object>();
 	private List<Map<String, Object>> classList = new ArrayList<Map<String, Object>>();
+
+	private Map<String, Object> PhysicsMachinesStatus = new HashMap<String, Object>();
 	
 	public String loadInfo(){
 		//question remaining : user power is required or not when query object details?
@@ -188,6 +190,34 @@ public class InformationAction extends ActionSupport implements ServletRequestAw
 		delete.put("data", "删除成功");
 		return SUCCESS;
 	}
+	//改变机柜状态
+	public String changePhysicsMachineStatus(){
+		System.out.println("enter chagne Status......");
+		String user = this.request.getParameter("user");
+		String id = this.request.getParameter("id");
+		String info = this.request.getParameter("data");
+		Map<String,Object> statusInfo = new HashMap<String,Object>();
+		
+		//map以字符串的形式传过来 ，  形式为     key1@@value1##key2@@value2
+		String[] entrySet= info.split("##");
+		for(String entry : entrySet){
+			String[] key_value =   entry.split("@@");
+			statusInfo.put(key_value[0], key_value[1]);
+			System.out.println(key_value[0]+" "+key_value[1]);
+		}
+		Boolean flag=this.infoService.changeStatus(user, id,statusInfo);
+		System.out.println("flag="+flag);
+		if(flag==true) {
+			PhysicsMachinesStatus.put("data", "状态已更改");
+			System.out.println("successfully return....");
+			return SUCCESS;
+		}
+		else {
+			System.out.println("error...........");
+			return ERROR;
+		}
+	}
+	
 	
 	//返回班级列表
 	public String queryClassList(){
@@ -260,6 +290,9 @@ public class InformationAction extends ActionSupport implements ServletRequestAw
 
 	public void setDelete(Map<String, Object> delete) {
 		this.delete = delete;
+	}
+	public void setStatus(Map<String, Object> change) {
+		this.PhysicsMachinesStatus = change;
 	}
 
 	public List<Map<String, Object>> getClassList() {
