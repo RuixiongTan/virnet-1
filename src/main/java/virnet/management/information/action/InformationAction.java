@@ -208,8 +208,7 @@ public class InformationAction extends ActionSupport implements ServletRequestAw
 		Boolean flag=this.infoService.changeStatus(user, id,statusInfo);
 		System.out.println("flag="+flag);
 		if(flag==true) {
-			PhysicsMachinesStatus.put("data", "状态已更改");
-			System.out.println("successfully return....");
+			delete.put("data", "状态已更改");
 			return SUCCESS;
 		}
 		else {

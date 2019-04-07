@@ -60,6 +60,7 @@ public class PhysicsMachinesManagement implements InformationQuery{
 		pageUtil.setPageNo(page);
 		
 		List<PhysicsMachines> physicsmachineslist = new ArrayList<PhysicsMachines>();
+//		List<PhysicsMachines> tempList = physicsMachinesDAO.getList();
 		int recordSize = physicsMachinesDAO.getList().size();
 		System.out.println("记录数："+recordSize);
 		if (recordSize > 0) {

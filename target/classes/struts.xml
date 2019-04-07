@@ -100,7 +100,7 @@
 		
 		<action name="changePhysicsMachineStatus" class="information" method="changePhysicsMachineStatus">
 			<result name="success" type="json">
-				<param name="root">PhysicsMachinesStatus</param>
+				<param name="root">delete</param>
 			</result>
 		</action>
 

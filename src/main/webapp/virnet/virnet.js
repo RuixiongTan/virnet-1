@@ -1605,8 +1605,9 @@ function deletePhysicsMachine(machineName){
 function changePhysicsMachineStatus(machineName){
 //调用action/InformationAction中的函数 ---> informationService中的函数
 	var info = "machineName" + "@@" + machineName ;
+//	alert(info);
 	msg = Messenger().post({
-		  message: "改变该机柜状态？",
+		  message: "确定更改该机柜状态？",
 		  actions: {
 		    retry: {
 		      label: '确定',
@@ -1614,7 +1615,7 @@ function changePhysicsMachineStatus(machineName){
 		      delay: 10,
 		      action: function(){
 		    	  $.ajax({
-		    		  url:"changePhysicsMachineStatus.action",
+		    		  url:'changePhysicsMachineStatus.action',
 		    		  data:{
 		    			  user:user.getUser(),
 		    			  id:"physicsMachines-management",
@@ -1623,7 +1624,6 @@ function changePhysicsMachineStatus(machineName){
 		    		  type:'post',      
 		    		  dataType:'json',    
 		    		  success:function(data) {
-		    			  alert("^^^^^^^^^^^^^^^^^^^^^^^^6");
 		    			  msg = Messenger().post({
 		    		    		message : data["data"],
 		    		    		showCloseButton : true
@@ -1642,6 +1642,8 @@ function changePhysicsMachineStatus(machineName){
 		    }
 		  }
 		});
+	
+	
 }
 
 
