@@ -152,6 +152,14 @@ public class InformationService {
 											PhysicsMachinesInfoCDAO pmicDao = new PhysicsMachinesInfoCDAO();
 											pmicDao.deletePhysicsMachine((String) deleteInfo.get("machineName"));
 											break;
+        //谭睿雄1.6
+        case "group": GroupInfoCDAO gicDAO = new GroupInfoCDAO();
+                    gicDAO.deleteGroup((String) deleteInfo.get("classgroupName"));
+                    break;
+        //谭睿雄2.5
+        case "student": StudentInfoCDAO sticDAO = new StudentInfoCDAO();
+                    sticDAO.deleteStud((String) deleteInfo.get("userNickname"));
+                    break;
 		}
 		
 		return map;
