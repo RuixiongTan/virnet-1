@@ -15,6 +15,7 @@ import virnet.management.combinedao.PhysicsMachinesInfoCDAO;
 import virnet.management.combinedao.ScoreCDAO;
 import virnet.management.combinedao.TaskInfoCDAO;
 import virnet.management.combinedao.SemesterInfoCDAO;
+import virnet.management.combinedao.StudentInfoCDAO;
 import virnet.management.dao.ClassDAO;
 import virnet.management.dao.SemesterDAO;
 import virnet.management.dao.PhysicsMachinesDAO;
