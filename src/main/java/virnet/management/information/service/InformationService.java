@@ -17,10 +17,12 @@ import virnet.management.combinedao.TaskInfoCDAO;
 import virnet.management.combinedao.SemesterInfoCDAO;
 import virnet.management.combinedao.StudentInfoCDAO;
 import virnet.management.dao.ClassDAO;
+import virnet.management.dao.FacilitiesDAO;
 import virnet.management.dao.SemesterDAO;
 import virnet.management.dao.PhysicsMachinesDAO;
 import virnet.management.combinedao.FacilitiesInfoCDAO;
 import virnet.management.entity.Class;
+import virnet.management.entity.Facilities;
 import virnet.management.entity.PhysicsMachines;
 
 public class InformationService {
@@ -182,6 +184,16 @@ public class InformationService {
 										 else {
 											 System.out.println("status out of range!");
 										 }
+										 //20190414苏展改facilities状态，不管机柜状态如何，机柜所有设备的状态都置为0
+										 FacilitiesDAO facilitiesDAO = new FacilitiesDAO();
+										 List<Facilities> flist = facilitiesDAO.getListByProperty("facilitiesBelongPhysicsMachines", Info.get("machineName"));
+										 for (int i=0;i<flist.size();i++) {
+											 Facilities f = new Facilities();
+											 f = flist.get(i);
+											 f.setStatus(0);//状态改为0
+											 facilitiesDAO.update(f);//更新facilities状态
+										 }
+										 
 										 //修改后需更新机柜，physics_machines 表才会更新
 										 phtDAO.update(p);
 										 System.out.println(p.getStatus());
